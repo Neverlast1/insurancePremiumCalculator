@@ -6,7 +6,11 @@ import math
 # Implement lists to track total premiums of each type (P/C)
 # Implement error checking
 
+
+# using functions to calculate premiums and no claim bonus
 def privateHousing():
+
+    # making use of pre-defined variables to allow ease of calculation later
     premiumRate = 0
     premiumCharged = 0
     amountInsured = int(input("Amount Insured ($) ? "))
@@ -15,6 +19,7 @@ def privateHousing():
     noClaimBonusRate = 0.1
     noClaimBonus = 0
 
+    # This if/elif statement checks the insured amount and applies the correct premium rate
     if amountInsured < 100000:
         premiumRate = 0.003
 
@@ -25,6 +30,7 @@ def privateHousing():
 
         premiumCharged = (amountInsured * premiumRate) + proCharge
 
+    # this if/elif statement checks the number of claims and applies the correct No Claim Bonus Rate
     if numClaims == 0:
         noClaimBonus = premiumCharged * noClaimBonusRate
 
@@ -42,10 +48,13 @@ def privateHousing():
         print("Premium = " + "$" + str(premiumCharged + noClaimBonus))
         return premiumCharged
 
+    # We always return the premiumCharged variable to calculate the total $ collected of each user type (P/C)
 
 
 
 def commercialProperty():
+
+    # making use of pre-defined variables to allow ease of calculation later
     premiumRate = 0
     premiumCharged = 0
     amountInsured = int(input("Amount Insured ($) ? "))
@@ -54,6 +63,7 @@ def commercialProperty():
     noClaimBonusRate = 0.15
     noClaimBonus = 0
 
+    # This if/elif statement checks the insured amount and applies the correct premium rate
     if amountInsured < 250000:
         premiumRate = 0.005
 
@@ -64,6 +74,7 @@ def commercialProperty():
 
         premiumCharged = (amountInsured * premiumRate) + proCharge
 
+    # this if/elif statement checks the number of claims and applies the correct No Claim Bonus Rate
     if numClaims == 0:
         noClaimBonus = premiumCharged * noClaimBonusRate
 
@@ -80,6 +91,9 @@ def commercialProperty():
         print("Number of Claims = " + str(numClaims))
         print("Premium = " + "$" + str(premiumCharged + noClaimBonus))
         return premiumCharged
+
+    # We always return the premiumCharged variable to calculate the total $ collected of each user type (P/C)
+
 
 # use of a main() function to keep code a little more clean.
 # I am not considering the main() function as one of the 2 defined and called functions.
