@@ -10,14 +10,16 @@ import math
 # using functions to calculate premiums and no claim bonus
 def privateHousing():
 
-    # making use of pre-defined variables to allow ease of calculation later
-    premiumRate = 0
-    premiumCharged = 0
-    amountInsured = int(input("Amount Insured ($) ? "))
-    proCharge = 50
-    numClaims = int(input("Number of claims ? "))
-    noClaimBonusRate = 0.1
-    noClaimBonus = 0
+    # I have made use of Zero initializing multiple variables.
+    # This allows me to re-assign their values when needed and where appropriate.
+
+    premiumRate = 0  # The rate (%) at which the premium is calculated.
+    premiumCharged = 0  # The premium amount ($).
+    amountInsured = int(input("Amount Insured ($) ? "))  # Asking user for input of Amount insured.
+    proCharge = 50  # Static Processing charge.
+    numClaims = int(input("Number of claims ? "))  # Asking user for input of the Number of Claims.
+    noClaimBonusRate = 0.1  # Static rate if the client has No Claims.
+    noClaimBonus = 0  # The Amount($) to reduce the premiumCharged if client is eligible.
 
     # This if/elif statement checks the insured amount and applies the correct premium rate
     if amountInsured < 100000:
@@ -54,14 +56,16 @@ def privateHousing():
 
 def commercialProperty():
 
-    # making use of pre-defined variables to allow ease of calculation later
-    premiumRate = 0
-    premiumCharged = 0
-    amountInsured = int(input("Amount Insured ($) ? "))
-    proCharge = 80
-    numClaims = int(input("Number of claims ? "))
-    noClaimBonusRate = 0.15
-    noClaimBonus = 0
+    # I have made use of Zero initializing multiple variables.
+    # This allows me to re-assign their values when needed and where appropriate.
+
+    premiumRate = 0  # The rate (%) at which the premium is calculated.
+    premiumCharged = 0  # The premium amount ($).
+    amountInsured = int(input("Amount Insured ($) ? "))  # Asking user for input of Amount insured.
+    proCharge = 80  # Static Processing charge.
+    numClaims = int(input("Number of claims ? "))  # Asking user for input of the Number of Claims.
+    noClaimBonusRate = 0.15  # Static rate if the client has No Claims.
+    noClaimBonus = 0  # The Amount($) to reduce the premiumCharged if client is eligible.
 
     # This if/elif statement checks the insured amount and applies the correct premium rate
     if amountInsured < 250000:
@@ -96,13 +100,15 @@ def commercialProperty():
 
 
 # use of a main() function to keep code a little more clean.
-# I am not considering the main() function as one of the 2 defined and called functions.
 
 
 def main():
     try:
-        usrType = input("User type(P/C)? ")
+        usrType = input("User type(P/C)? ")  # Ask's user to input client type, Private or Commercial.
 
+        # This if/elif statement checks the User type.
+        # If anything other than P,p,C,c is input, it throws an error.
+        # I have also specifically allowed both upper and lower case.
         if usrType == "P" or usrType == "p":
             privateHousing()
 
@@ -115,6 +121,6 @@ def main():
         print("An Error has occurred")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # This calls the main() function
     main()
 
