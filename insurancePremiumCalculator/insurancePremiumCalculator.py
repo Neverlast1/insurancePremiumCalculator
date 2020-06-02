@@ -1,7 +1,6 @@
 import math
 
 # TO DO
-# Implement lists to track total premiums of each type (P/C)
 # Implement error checking
 
 
@@ -12,7 +11,7 @@ def privateHousing():
     # This allows me to re-assign their values when needed and where appropriate.
 
     premiumRate = 0  # The rate (%) at which the premium is calculated.
-    premiumCharged = 0  # The premium amount ($).
+    global privPremiumCharged  # The premium amount ($). Global to allow use in the main() function
     amountInsured = int(input("Amount Insured ($) ? "))  # Asking user for input of Amount insured.
     proCharge = 50  # Static Processing charge.
     numClaims = int(input("Number of claims ? "))  # Asking user for input of the Number of Claims.
@@ -23,34 +22,30 @@ def privateHousing():
     if amountInsured < 100000:
         premiumRate = 0.003
 
-        premiumCharged = (amountInsured * premiumRate) + proCharge
+        privPremiumCharged = (amountInsured * premiumRate) + proCharge
 
     elif amountInsured >= 100000:
         premiumRate = 0.0025
 
-        premiumCharged = (amountInsured * premiumRate) + proCharge
+        privPremiumCharged = (amountInsured * premiumRate) + proCharge
 
     # this if/elif statement checks the number of claims and applies the correct No Claim Bonus Rate
     if numClaims == 0:
-        noClaimBonus = premiumCharged * noClaimBonusRate
+        noClaimBonus = privPremiumCharged * noClaimBonusRate
 
         print("\nPremium Summary")
         print("Amount Insured = " + "$" + str(amountInsured))
         print("Number of Claims = " + str(numClaims))
         print("No Claim Bonus = " + "$" + str(noClaimBonus))
-        print("Premium = " + "$" + str(premiumCharged - noClaimBonus))
+        print("Premium = " + "$" + str(privPremiumCharged - noClaimBonus))
+        privPremiumCharged = privPremiumCharged - noClaimBonus
 
 
     elif numClaims >= 1:
         print("\nPremium Summary")
         print("Amount Insured = " + "$" + str(amountInsured))
         print("Number of Claims = " + str(numClaims))
-        print("Premium = " + "$" + str(premiumCharged + noClaimBonus))
-
-    return premiumCharged
-
-    # We always return the premiumCharged variable to calculate the total $ collected of each user type (P/C)
-
+        print("Premium = " + "$" + str(privPremiumCharged + noClaimBonus))
 
 
 def commercialProperty():
@@ -59,7 +54,7 @@ def commercialProperty():
     # This allows me to re-assign their values when needed and where appropriate.
 
     premiumRate = 0  # The rate (%) at which the premium is calculated.
-    premiumCharged = 0  # The premium amount ($).
+    global comPremiumCharged  # The premium amount ($). Global to allow use in the main() function
     amountInsured = int(input("Amount Insured ($) ? "))  # Asking user for input of Amount insured.
     proCharge = 80  # Static Processing charge.
     numClaims = int(input("Number of claims ? "))  # Asking user for input of the Number of Claims.
@@ -70,67 +65,75 @@ def commercialProperty():
     if amountInsured < 250000:
         premiumRate = 0.005
 
-        premiumCharged = (amountInsured * premiumRate) + proCharge
+        comPremiumCharged = (amountInsured * premiumRate) + proCharge
 
     elif amountInsured >= 250000:
         premiumRate = 0.0075
 
-        premiumCharged = (amountInsured * premiumRate) + proCharge
+        comPremiumCharged = (amountInsured * premiumRate) + proCharge
 
     # this if/elif statement checks the number of claims and applies the correct No Claim Bonus Rate
     if numClaims == 0:
-        noClaimBonus = premiumCharged * noClaimBonusRate
+        noClaimBonus = comPremiumCharged * noClaimBonusRate
 
         print("\nPremium Summary")
         print("Amount Insured = " + "$" + str(amountInsured))
         print("Number of Claims = " + str(numClaims))
         print("No Claim Bonus = " + "$" + str(noClaimBonus))
-        print("Premium = " + "$" + str(premiumCharged - noClaimBonus))
-        return premiumCharged
+        print("Premium = " + "$" + str(comPremiumCharged - noClaimBonus))
+        comPremiumCharged = comPremiumCharged - noClaimBonus
 
     elif numClaims >= 1:
         print("\nPremium Summary")
         print("Amount Insured = " + "$" + str(amountInsured))
         print("Number of Claims = " + str(numClaims))
-        print("Premium = " + "$" + str(premiumCharged + noClaimBonus))
-        return premiumCharged
-
-    # We always return the premiumCharged variable to calculate the total $ collected of each user type (P/C)
+        print("Premium = " + "$" + str(comPremiumCharged + noClaimBonus))
 
 
-# use of a main() function to keep code a little more clean.
+# use of a main() function to call other functions and contain the rest of the program.
 
 
 def main():
     try:
-        i = bool(0)
-        while i == 0:
+        i = bool(0)  # Boolean variable used to break while loop.
+        privTotal = 0  # Adds the together each iteration of the privPremiumCharged
+        comTotal = 0  # Adds the together each iteration of the comPremiumCharged
+        numPriv = 0  # Counts the number of Private Clients Processed.
+        numCom = 0  # Counts the number of Commercial clients Processed.
+
+        while i == 0:  # This while statement loops through the main process while i = 0
             usrType = input("User type(P/C)? ")  # Ask's user to input client type, Private or Commercial.
-            numPriv = 0
-            numCom = 0
-            privTotal = 0
-            comTotal = 0
 
             # This if/elif statement checks the User type.
             # If anything other than P,p,C,c is input, it throws an error.
             # I have also specifically allowed both upper and lower case.
             if usrType == "P" or usrType == "p":
                 privateHousing()
+                privTotal = privTotal + privPremiumCharged
                 numPriv += 1
 
             elif usrType == "C" or usrType == "c":
                 commercialProperty()
+                comTotal = comTotal + comPremiumCharged
                 numCom += 1
 
             else:
                 print("Invalid User type")
 
+            # This if statement checks to see if the program is still in the loop.
+            # And ask's the user if they want to input another client.
             if i == 0:
                 cont = input("\nAnother client y/n? ")
+                # This if statement checks the user input's n or N
+                # and changes i to 1 and breaks the loop.
                 if cont == "n" or cont == "N":
                     i = 1
 
-            print(privTotal)
+        print("Session Summary:\n")
+        print("Number of Private Clients: " + str(numPriv))
+        print("Total Private client Premiums collected = " + "$" + str(privTotal))
+        print("Number of Commercial Clients = " + str(numCom))
+        print("Total Commercial client Premiums collected = " + "$" + str(comTotal))
 
     except:
         print("An Error has occurred")
