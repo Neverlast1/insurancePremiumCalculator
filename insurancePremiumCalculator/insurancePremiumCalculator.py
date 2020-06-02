@@ -11,7 +11,7 @@ def privateHousing():
     premiumRate = 0  # The rate (%) at which the premium is calculated.
     global privPremiumCharged  # The premium amount ($). Global to allow use in the main() function
     amountInsured = int(input("Amount Insured ($) ? "))  # Asking user for input of Amount insured.
-    proCharge = 50  # Static Processing charge.
+    proCharge = 50  # Static Processing charge./
     numClaims = int(input("Number of claims ? "))  # Asking user for input of the Number of Claims.
     noClaimBonusRate = 0.1  # Static rate if the client has No Claims.
     noClaimBonus = 0  # The Amount($) to reduce the premiumCharged if client is eligible.
@@ -93,13 +93,14 @@ def commercialProperty():
 
 def main():
     try:
-        i = bool(0)  # Boolean variable used to break while loop.
+        cont = "y"  # "continue" variable used to break while loop.
         privTotal = 0  # Adds the together each iteration of the privPremiumCharged
         comTotal = 0  # Adds the together each iteration of the comPremiumCharged
         numPriv = 0  # Counts the number of Private Clients Processed.
         numCom = 0  # Counts the number of Commercial clients Processed.
 
-        while i == 0:  # This while statement loops through the main process while i = 0
+        while cont == "y":  # This while statement loops through the main process while i =
+
             usrType = input("User type(P/C)? ")  # Ask's user to input client type, Private or Commercial.
 
             # This if/elif statement checks the User type.
@@ -120,12 +121,16 @@ def main():
 
             # This if statement checks to see if the program is still in the loop.
             # And ask's the user if they want to input another client.
-            if i == 0:
-                cont = input("\nAnother client y/n? ")
-                # This if statement checks the user input's n or N
-                # and changes i to 1 and breaks the loop.
-                if cont == "n" or cont == "N":
-                    i = 1
+            if cont == "y":
+                askCont = input("\nAnother client y/n? ")  # used to ask input if they want to continue.
+                # This if statement checks the user input, and checks if it's a valid entry.
+                # and changes cont to to either n (to break loop) or y (to continue loop)
+                if askCont == "n" or askCont == "N":
+                    cont = "n"
+                elif askCont == "y" or askCont == "Y":
+                    cont = "y"
+                else:
+                    raise TypeError
 
         print("Session Summary:\n")
         print("Number of Private Clients: " + str(numPriv))
@@ -133,8 +138,11 @@ def main():
         print("Number of Commercial Clients = " + str(numCom))
         print("Total Commercial client Premiums collected = " + "$" + str(comTotal))
 
-    except:
-        print("An Error has occurred")
+    except TypeError:
+        print("Invalid Input Type")
+    finally:
+        print("\nProgram Ended")
+        exit()
 
 
 if __name__ == "__main__":  # This calls the main() function
