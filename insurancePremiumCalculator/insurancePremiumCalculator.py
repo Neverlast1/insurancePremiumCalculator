@@ -1,5 +1,3 @@
-import math
-
 # TO DO
 # Implement error checking
 
