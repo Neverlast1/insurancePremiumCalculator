@@ -1,8 +1,6 @@
 import math
 
 # TO DO
-# Implement Loop to allow multiple claim/user input
-# Implement lists to track number of each client type input (P/C)
 # Implement lists to track total premiums of each type (P/C)
 # Implement error checking
 
@@ -41,14 +39,15 @@ def privateHousing():
         print("Number of Claims = " + str(numClaims))
         print("No Claim Bonus = " + "$" + str(noClaimBonus))
         print("Premium = " + "$" + str(premiumCharged - noClaimBonus))
-        return premiumCharged
+
 
     elif numClaims >= 1:
         print("\nPremium Summary")
         print("Amount Insured = " + "$" + str(amountInsured))
         print("Number of Claims = " + str(numClaims))
         print("Premium = " + "$" + str(premiumCharged + noClaimBonus))
-        return premiumCharged
+
+    return premiumCharged
 
     # We always return the premiumCharged variable to calculate the total $ collected of each user type (P/C)
 
@@ -104,19 +103,35 @@ def commercialProperty():
 
 def main():
     try:
-        usrType = input("User type(P/C)? ")  # Ask's user to input client type, Private or Commercial.
+        i = bool(0)
+        while i == 0:
+            usrType = input("User type(P/C)? ")  # Ask's user to input client type, Private or Commercial.
+            numPriv = 0
+            numCom = 0
+            privTotal = 0
+            comTotal = 0
 
-        # This if/elif statement checks the User type.
-        # If anything other than P,p,C,c is input, it throws an error.
-        # I have also specifically allowed both upper and lower case.
-        if usrType == "P" or usrType == "p":
-            privateHousing()
+            # This if/elif statement checks the User type.
+            # If anything other than P,p,C,c is input, it throws an error.
+            # I have also specifically allowed both upper and lower case.
+            if usrType == "P" or usrType == "p":
+                privateHousing()
+                numPriv += 1
 
-        elif usrType == "C" or usrType == "c":
-            commercialProperty()
+            elif usrType == "C" or usrType == "c":
+                commercialProperty()
+                numCom += 1
 
-        else:
-            print("Please enter a valid user type")
+            else:
+                print("Invalid User type")
+
+            if i == 0:
+                cont = input("\nAnother client y/n? ")
+                if cont == "n" or cont == "N":
+                    i = 1
+
+            print(privTotal)
+
     except:
         print("An Error has occurred")
 
