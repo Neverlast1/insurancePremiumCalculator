@@ -1,6 +1,7 @@
-# TO DO
-# Implement error checking
 
+# This Program was written by Joel Busch
+# This Program accepts user input, calculates premium on a given amount insured, prints each individual clients priemium
+# And then prints a summary of all the premiums collected.
 
 # using functions to calculate premiums and no claim bonus
 def privateHousing():
@@ -88,63 +89,57 @@ def commercialProperty():
         print("Premium = " + "$" + str(comPremiumCharged + noClaimBonus))
 
 
-# use of a main() function to call other functions and contain the rest of the program.
+try:
+    # I have made use of Zero initializing multiple variables.
+    # This allows me to re-assign their values when needed and where appropriate.
 
+    cont = "y"  # "continue" variable used to break while loop.
+    privTotal = 0  # Adds the together each iteration of the privPremiumCharged
+    comTotal = 0  # Adds the together each iteration of the comPremiumCharged
+    numPriv = 0  # Counts the number of Private Clients Processed.
+    numCom = 0  # Counts the number of Commercial clients Processed.
 
-def main():
-    try:
-        cont = "y"  # "continue" variable used to break while loop.
-        privTotal = 0  # Adds the together each iteration of the privPremiumCharged
-        comTotal = 0  # Adds the together each iteration of the comPremiumCharged
-        numPriv = 0  # Counts the number of Private Clients Processed.
-        numCom = 0  # Counts the number of Commercial clients Processed.
+    while cont == "y":  # This while statement loops through the main process while i =
 
-        while cont == "y":  # This while statement loops through the main process while i =
+        usrType = input("User type(P/C)? ")  # Ask's user to input client type, Private or Commercial.
 
-            usrType = input("User type(P/C)? ")  # Ask's user to input client type, Private or Commercial.
+        # This if/elif statement checks the User type.
+        # If anything other than P,p,C,c is input, it throws an error.
+        # I have also specifically allowed both upper and lower case.
+        if usrType == "P" or usrType == "p":
+            privateHousing()
+            privTotal = privTotal + privPremiumCharged
+            numPriv += 1
 
-            # This if/elif statement checks the User type.
-            # If anything other than P,p,C,c is input, it throws an error.
-            # I have also specifically allowed both upper and lower case.
-            if usrType == "P" or usrType == "p":
-                privateHousing()
-                privTotal = privTotal + privPremiumCharged
-                numPriv += 1
+        elif usrType == "C" or usrType == "c":
+            commercialProperty()
+            comTotal = comTotal + comPremiumCharged
+            numCom += 1
 
-            elif usrType == "C" or usrType == "c":
-                commercialProperty()
-                comTotal = comTotal + comPremiumCharged
-                numCom += 1
+        else:
+            print("Invalid User type")
 
+        # This if statement checks to see if the program is still in the loop.
+        # And ask's the user if they want to input another client.
+        if cont == "y":
+            askCont = input("\nAnother client y/n? ")  # used to ask input if they want to continue.
+            # This if statement checks the user input, and checks if it's a valid entry.
+            # and changes cont to to either n (to break loop) or y (to continue loop)
+            if askCont == "n" or askCont == "N":
+                cont = "n"
+            elif askCont == "y" or askCont == "Y":
+                cont = "y"
             else:
-                print("Invalid User type")
+                raise TypeError
 
-            # This if statement checks to see if the program is still in the loop.
-            # And ask's the user if they want to input another client.
-            if cont == "y":
-                askCont = input("\nAnother client y/n? ")  # used to ask input if they want to continue.
-                # This if statement checks the user input, and checks if it's a valid entry.
-                # and changes cont to to either n (to break loop) or y (to continue loop)
-                if askCont == "n" or askCont == "N":
-                    cont = "n"
-                elif askCont == "y" or askCont == "Y":
-                    cont = "y"
-                else:
-                    raise TypeError
+    print("Session Summary:\n")
+    print("Number of Private Clients: " + str(numPriv))
+    print("Total Private client Premiums collected = " + "$" + str(privTotal))
+    print("Number of Commercial Clients = " + str(numCom))
+    print("Total Commercial client Premiums collected = " + "$" + str(comTotal))
 
-        print("Session Summary:\n")
-        print("Number of Private Clients: " + str(numPriv))
-        print("Total Private client Premiums collected = " + "$" + str(privTotal))
-        print("Number of Commercial Clients = " + str(numCom))
-        print("Total Commercial client Premiums collected = " + "$" + str(comTotal))
-
-    except TypeError:
-        print("Invalid Input Type")
-    finally:
-        print("\nProgram Ended")
-        exit()
-
-
-if __name__ == "__main__":  # This calls the main() function
-    main()
-
+except TypeError:
+    print("Invalid Input Type")
+finally:
+    print("\nProgram Ended")
+    exit()
