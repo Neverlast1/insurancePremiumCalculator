@@ -1,3 +1,4 @@
+import time
 
 # This Program was written by Joel Busch
 # This Program accepts user input, calculates premium on a given amount insured, prints each individual clients priemium
@@ -107,15 +108,20 @@ try:
         # If anything other than P,p,C,c is input, it throws an error.
         # I have also specifically allowed both upper and lower case.
         if usrType == "P" or usrType == "p":
-            privateHousing()
-            privTotal = privTotal + privPremiumCharged
-            numPriv += 1
+            try:
+                privateHousing()
+                privTotal = privTotal + privPremiumCharged
+                numPriv += 1
+            except:
+                raise TypeError  # Raising TypeError's if input's for functions are not of the correct type.
 
         elif usrType == "C" or usrType == "c":
-            commercialProperty()
-            comTotal = comTotal + comPremiumCharged
-            numCom += 1
-
+            try:
+                commercialProperty()
+                comTotal = comTotal + comPremiumCharged
+                numCom += 1
+            except:
+                raise TypeError  # Raising TypeError's if input's for functions are not of the correct type.
         else:
             print("Invalid User type")
 
@@ -132,14 +138,21 @@ try:
             else:
                 raise TypeError
 
+    # Printing the "Session Summary".
+    # Use of time.sleep to make the output a little more readable, so it doesn't all just pop out at once.
+    time.sleep(1)
     print("Session Summary:\n")
+    time.sleep(1)
     print("Number of Private Clients: " + str(numPriv))
+    time.sleep(1)
     print("Total Private client Premiums collected = " + "$" + str(privTotal))
+    time.sleep(1)
     print("Number of Commercial Clients = " + str(numCom))
+    time.sleep(1)
     print("Total Commercial client Premiums collected = " + "$" + str(comTotal))
 
 except TypeError:
     print("Invalid Input Type")
 finally:
+    time.sleep(1)
     print("\nProgram Ended")
-    exit()
