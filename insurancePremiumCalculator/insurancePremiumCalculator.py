@@ -10,7 +10,7 @@ def privateHousing():
     # This allows me to re-assign their values when needed and where appropriate.
 
     premiumRate = 0  # The rate (%) at which the premium is calculated.
-    global privPremiumCharged  # The premium amount ($). Global to allow use in the main() function
+    global privPremiumCharged  # The premium amount ($). Global to allow use in the main() function (Note: This is bad)
     amountInsured = int(input("Amount Insured ($) ? "))  # Asking user for input of Amount insured.
     proCharge = 50  # Static Processing charge./
     numClaims = int(input("Number of claims ? "))  # Asking user for input of the Number of Claims.
